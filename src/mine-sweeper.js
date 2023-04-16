@@ -24,32 +24,102 @@ const { NotImplementedError } = require('../extensions/index.js');
  * ]
  */
 function minesweeper(matrix) {
-  for (let i = 0; i < matrix.length - 1; i++) {
-    for (let j = 0; j < matrix[i].length - 1; j++) {
-      if (matrix[i][j] === false) {
-        matrix[i][j] = 0
-      }
-           if (i === 0) {
-             if (matrix[i][j] === true) {
-               matrix[i][j] = 1
-               matrix[i + 1][j] += 1
-               matrix[i][j + 1] += 1
-               matrix[i + 1][j + 1] += 1
-             }
-           } else if (i > 0 && j < matrix[i].length - 1 && i < matrix.length - 1) {
-             if (matrix[i][j] === true) {
-               matrix[i][j] = 1
-               matrix[i + 1][j] += 1
-               matrix[i][j + 1] += 1
-               matrix[i + 1][j + 1] += 1
-               matrix[i - 1][j] += 1
-               matrix[i - 1][j - 1] += 1
-               matrix[i][j - 1] += 1
-             }
-           }
+  let mtrx = JSON.parse(JSON.stringify(matrix));
+  mtrx.forEach(elem => {
+    for (let i = 0; i < elem.length; i++) {
+      elem[i] = 0;
     }
-  }
-  return matrix
+  })
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+           
+        if (i === 0) {
+          if (matrix[i][j] === true) {
+            if(j === 0) {
+            mtrx[i][j] = 1;
+            mtrx[i + 1][j] += 1;
+            mtrx[i][j + 1] += 1;
+            mtrx[i + 1][j + 1] += 1;
+            }
+            if (j > 0 && j < matrix[i].length - 1) {
+            mtrx[i][j] = 1;
+            mtrx[i + 1][j] += 1;
+            mtrx[i][j + 1] += 1;
+            mtrx[i + 1][j + 1] += 1;
+            mtrx[i][j-1] += 1;
+            }
+            if (j === matrix[i].length - 1) {
+            mtrx[i][j] = 1;
+            mtrx[i + 1][j] += 1;
+            mtrx[i + 1][j - 1] += 1;
+            mtrx[i][j-1] += 1;
+            }
+          }
+      } else if (i > 0 && i < mtrx.length - 1) {
+        if (matrix[i][j] === true) {
+          if(j === 0) {
+            mtrx[i][j] = 1;
+            mtrx[i + 1][j] += 1;
+            mtrx[i][j + 1] += 1;
+            mtrx[i + 1][j + 1] += 1;
+            mtrx[i - 1][j] += 1;
+            mtrx[i-1][j+1] += 1;
+            }
+          if (j > 0 && j < matrix[i].length - 1) {
+          mtrx[i][j] = 1;
+          mtrx[i + 1][j] += 1;
+          mtrx[i][j + 1] += 1;
+          mtrx[i + 1][j + 1] += 1;
+          mtrx[i - 1][j] += 1;
+          mtrx[i - 1][j - 1] += 1;
+          mtrx[i][j - 1] += 1;
+          mtrx[i-1][j+1] += 1;
+          mtrx[i+1][j-1] += 1;
+          }
+           if (j === matrix[i].length - 1) {
+          mtrx[i][j] = 1;
+          mtrx[i + 1][j] += 1;
+          mtrx[i - 1][j] += 1;
+          mtrx[i - 1][j - 1] += 1;
+          mtrx[i][j - 1] += 1;
+          mtrx[i+1][j-1] += 1;
+        }
+        }
+      } else if (i === matrix.length - 1) {
+          if (matrix[i][j] === true) {
+          if(j === 0) {
+            mtrx[i][j] = 1;
+            mtrx[i][j + 1] += 1;
+            mtrx[i - 1][j] += 1;
+            mtrx[i-1][j+1] += 1;
+            }
+          if (j > 0 && j < matrix[i].length - 1) {
+          mtrx[i][j] = 1;
+          mtrx[i][j + 1] += 1;
+          mtrx[i - 1][j] += 1;
+          mtrx[i - 1][j - 1] += 1;
+          mtrx[i][j - 1] += 1;
+          mtrx[i-1][j+1] += 1;
+          }
+           if (j === matrix[i].length - 1) {
+          mtrx[i][j] = 1;
+          mtrx[i - 1][j] += 1;
+          mtrx[i - 1][j - 1] += 1;
+          mtrx[i][j - 1] += 1;
+        }
+        }
+      }
+    }
+    }
+  mtrx.forEach((elem, index) => {
+    for (let i = 0; i < elem.length; i++) {
+      if (matrix[index][i] === true) {
+        elem[i] = 1;
+      }
+    }
+  })
+  return mtrx
 }
 
 module.exports = {

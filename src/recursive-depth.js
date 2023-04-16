@@ -13,18 +13,26 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 class DepthCalculator {
+
   calculateDepth(arr) {
-  let count = 0;
+
+    let count = 0;
+
     for (let i = 0; i < arr.length; i++) {
+      
       if(Array.isArray(arr[i])) {
-        let depth = this.calculateDepth(arr[i]);
-          if (depth > count) {
-            count = depth;
-          }
+
+      let depth = this.calculateDepth(arr[i]);
+        if (depth > count) {
+          count = depth;
         }
       }
+    }
+
     return count + 1
+
   }
+
 }
 
 module.exports = {
